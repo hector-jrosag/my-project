@@ -1,52 +1,25 @@
 <template>
-  <div class="my-component">
-    <h1 v-bind:class="{ highlighted: isHighlighted }">{{ title }}</h1>
-    <button v-on:click="toggleHighlight">Toggle Highlight</button>
-    <input v-model="message">
+  <div id="app">
+    <h1>{{ message }}</h1>
+    <button @click="changeMessage">Change Message</button>
 
-    <ul>
-      <li v-for="item in list" :key="item.id">{{ item.text }}</li>
-    </ul>
-
-  </div>
+   </div>
 
 </template>
-
-<style scoped>
-.highlighted {
-  color: gold;
-}
-</style>
-
 <script>
+import { mapState, mapMutations } from 'vuex';
 export default {
-  name: 'MyComponent',
-  data() {
-    return {
-      message: 'Hello World with Vue!',
-      title: 'This is the title',
-      isHighlighted: false,
-      isVisible: true,
-      list: [
-        { id: 1, text: 'First item' },
-        { id: 2, text: 'Second item' },
-        { id: 3, text: 'Third item' }
-      ]
-
-    }
+    computed: {
+    ...mapState(['message'])
   },
   methods: {
-    toggleVisibility() {
-      this.isVisible = !this.isVisible;
-    },
-    sayHello() {
-      alert('Hello!');
-    },
-    toggleHighlight() {
-      this.isHighlighted = !this.isHighlighted;
+    ...mapMutations(['setMessage']),
+    changeMessage() {
+      this.setMessage('Hello everyone!');
     }
   }
 
 }
+
 
 </script>
